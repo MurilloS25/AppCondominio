@@ -1,0 +1,110 @@
+﻿@model Infraestructure.Models.Factura
+
+
+<hr />
+
+<div class="main-content-inner">
+
+
+    <div class="row">
+
+
+        <div class="col-lg-6 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Plan: @Model.PlanCobro.Descripcion</h4>
+                    @foreach (var item in Model.PlanCobro.RubroCobro)
+                    {
+                        <div id="@item.Descripcion" class="according accordion-s2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <a class="card-link collapsed" data-toggle="collapse" href="#@item.Id" aria-expanded="false">
+                                        @Html.DisplayFor(modelItem => item.Descripcion)
+                                    </a>
+                                </div>
+                                <div id="@item.Id" class="collapse" data-parent="#@item.Descripcion" style="">
+                                    <div class="card-body">
+                                        Precio: @Html.DisplayFor(modelItem => item.Costo) <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div id="costo" class="">
+                        <div class="card">
+                            <div class="card-header">
+                            <div class="row justify-content-between">
+                                <div> @Html.DisplayNameFor(model => model.PlanCobro.Total)</div>
+                                <div> @Html.DisplayFor(model => model.PlanCobro.Total)</div>
+                            </div>
+
+                            </div>
+                         
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mt-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">@Html.DisplayNameFor(model => model.Propiedad.Usuario)</h4>
+                    <div id="nombre" class="according accordion-s2">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" href="#collapUsuario" aria-expanded="false">
+                                    Nombre
+                                </a>
+                            </div>
+                            <div id="collapUsuario" class="collapse" data-parent="#nombre" style="">
+                                <div class="card-body">
+                                    @Model.Propiedad.Usuario.Nombre @Model.Propiedad.Usuario.Apellido1 @Model.Propiedad.Usuario.Apellido2
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="email" class="according accordion-s2">
+                        <div class="card">
+                            <div class="card-header">
+                                <a class="card-link collapsed" data-toggle="collapse" href="#collapEmail" aria-expanded="false">
+                                    @Html.DisplayNameFor(model => model.Propiedad.Usuario.Email)
+                                </a>
+                            </div>
+                            <div id="collapEmail" class="collapse" data-parent="#email" style="">
+                                <div class="card-body">
+                                    @Html.DisplayFor(model => model.Propiedad.Usuario.Email)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+        @Html.ActionLink("Volver", "Index", new { id = Model.Propiedad.Id }, new {@class= "btn bg-siteColor text-white" })
+  
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $("#btnVerDetalles").click(function () {
+                    if ($("#icon").hasClass("fa-arrow-down")) {
+                        $("#icon").removeClass("fa-arrow-down").addClass("fa-arrow-up");
+                    } else if ($("#icon").hasClass("fa-arrow-up")) {
+                        $("#icon").removeClass("fa-arrow-up").addClass("fa-arrow-down");
+                    }
+                });
+            });
+        </script>
+    }

@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "IndexUsuario";
+    IEnumerable<Infraestructure.Models.Informacion> listaInformacion = ViewBag.listaInformacion;
+    IEnumerable<Infraestructure.Models.Archivo> listaArchivos = ViewBag.listaArchivos;
+}
+
+
+
+
+
+
+<div class="row">
+
+    <div class="col-md-9 col-12">
+        @foreach (var item in listaInformacion)
+        {
+            <div class="card mt-3">
+                <div class="card-header">
+                    @item.Titulo
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@item.Descripcion</p>
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+
+    <div class="col-md-3 col-12">
+        <div class="">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">Archivos Documentales</h4>
+                    <ul class="list-group">
+                        @foreach (var item in listaArchivos)
+                        {
+                            <li class="list-group-item"><a class="text-siteColor" href="@Url.Action("DescargarPDF", "Archivo", new { id = item.Id })">@item.Nombre</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

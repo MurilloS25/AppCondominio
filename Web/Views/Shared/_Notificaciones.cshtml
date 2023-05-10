@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Infraestructure.Models.NotificacionUsuario>
+@{
+    var notificaciones = Session["Notificaciones"] as List<Infraestructure.Models.NotificacionUsuario>;
+}
+
+
+<i class="fa-solid fa-bell dropdown-toggle" data-toggle="dropdown">
+    <span class="bg-siteColor">@notificaciones.Count</span>
+</i>
+<div class="dropdown-menu bell-notify-box notify-box">
+    <span class="notify-title">Sus notificaciones</span>
+    <div class="nofity-list">
+        @if (Model.Count() == 0)
+        {
+            <div class="notify-item mb-3">
+                <p class="text-center">Todo está tranquilo por acá...</p>
+            </div>
+        }
+        @foreach (var item in Model)
+        {
+
+            <div class="notify-item mb-3">
+                <div class="notify-thumb p-2"><i class="ti-info btn-danger"></i></div>
+                <div class="notify-text pr-1">
+                    <p>@item.Notificacion.Descripcion</p>
+                    <button class="notification-btn btn btn-sm btn-outline-secondary" value="@item.Id"><i class="fa-regular fa-eye"></i>  Marcar como leída</button>
+                </div>
+                <hr />
+            </div>
+
+        }
+
+
+    </div>
+</div>

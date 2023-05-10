@@ -1,0 +1,40 @@
+﻿@model Infraestructure.Models.PlanCobro
+
+
+
+
+
+<div class="container">
+
+    <div style="display:flex; justify-content:center">
+        <h4 style="">@Html.DisplayFor(model => model.Descripcion)</h4>
+    </div>
+
+
+    <hr />
+
+
+
+    <div class="row justify-content-between">
+        @foreach (var item in Model.RubroCobro)
+        {
+            <div class="card col-3 mt-5">
+                <div class="card-img-top card-img-top text-center p-3">
+                    <i class="@("fa-solid fa-sack-dollar")" style="font-size:3em;"></i>
+                </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Descripcion)</h5>
+                    <p class="card-header">@Html.DisplayFor(modelItem => item.Costo)</p>
+                </div>
+            </div>
+
+        }
+    </div>
+
+</div>
+
+
+<div class="row justify-content-center mt-3">
+    @Html.ActionLink("Volver", "Index", null, new { @class = "btn bg-siteColor text-white" })
+</div>
+

@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Infraestructure.Models.Usuario usuario = Session["Usuario"] as Infraestructure.Models.Usuario;
+    Layout = null;
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Content/jqueryUI")
+
+<div class="error-area ptb--100 text-center">
+    <div class="container">
+        <div class="error-content">
+
+            <h2> @ViewBag.Title</h2>
+            <p class="lead">
+                @ViewBag.Description
+            </p>
+            @Html.ActionLink("Regresar", (String)ViewBag.RedirectAction, (String)ViewBag.Redirect, null, new { @class = "btn btn-primary btn-lg", @style = "margin-right:10px;" })
+        </div>
+    </div>
+</div>
+
+
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/complementos")
+    @Scripts.Render("~/bundles/jqueryUI")
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>-->

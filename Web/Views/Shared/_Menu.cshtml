@@ -1,0 +1,194 @@
+﻿@{
+
+    var oUsuario = Session["usuario"] as dynamic;
+    var notificaciones = Session["Notificaciones"] as List<Infraestructure.Models.NotificacionUsuario>;
+}
+<!-- main header area start -->
+<div class="mainheader-area">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-3">
+                <div class="logo">
+                    @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                    {
+                        <a href="@Url.Action("IndexAdmin","Home")">
+                            <img class="p-2" src="~/Content/Images/logo.png" width="100" alt="logo" />
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("IndexUsuario","Home")">
+                            <img class="p-2" src="~/Content/Images/logo.png" width="100" alt="logo" />
+                        </a>
+
+                    }
+
+                </div>
+            </div>
+            <!-- profile info & task notification -->
+            <div class="col-md-9 clearfix text-right">
+                <div class="d-md-inline-block d-block mr-md-4">
+                    <ul class="notification-area">
+                        <li id="full-view"><i class="fa-solid fa-maximize"></i></li>
+                        <li id="full-view-exit"><i class="fa-solid fa-minimize"></i></li>
+
+                        <li class="dropdown" id="listaNotificaciones">
+                            <i class="fa-solid fa-bell dropdown-toggle" data-toggle="dropdown">
+                                <span class="bg-siteColor">@notificaciones.Count</span>
+                            </i>
+                            <div class="dropdown-menu bell-notify-box notify-box">
+                                <span class="notify-title">Sus notificaciones</span>
+                                <div class="nofity-list">
+                                    @if (notificaciones.Count == 0)
+                                    {
+                                    <div class="notify-item mb-3">
+                                        <p class="text-center">Todo está tranquilo por acá...</p>
+                                    </div>
+                                    }
+                                    @foreach (var item in (List<Infraestructure.Models.NotificacionUsuario>)notificaciones)
+                                    {
+
+                                        <div class="notify-item mb-3">
+                                            <div class="notify-thumb p-2"><i class="ti-info btn-danger"></i></div>
+                                            <div class="notify-text pr-1">
+                                                <p>@item.Notificacion.Descripcion</p>
+                                                <button class="notification-btn btn btn-sm btn-outline-secondary" value="@item.Id"><i class="fa-regular fa-eye"></i>  Marcar como leída</button>
+                                            </div>
+                                            <hr />
+                                        </div>
+
+                                    }
+
+
+                                </div>
+                                        </div>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="clearfix d-md-inline-block d-block">
+                    <div class="user-profile m-0">
+                        <img src="~/Content/Images/avatar.png" />
+                        <h4 class="user-name dropdown-toggle" data-toggle="dropdown">@oUsuario.Nombre<i class="fa fa-angle-down"></i></h4>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Message</a>
+                            <a class="dropdown-item" href="#">Settings</a>
+                            <a href="@Url.Action("Logout","Home")" class="dropdown-item">Cerrar Sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- main header area end -->
+<!-- header area start -->
+<div class="header-area header-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-9  d-none d-lg-block">
+                <div class="horizontal-menu">
+                    <nav>
+                        <ul id="nav_menu">
+                            <li>
+                                @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                                {
+                                    <a href="@Url.Action("IndexAdmin","Home")"><i class="ti-home"></i><span>Home</span></a>
+                                }
+                                else
+                                {
+
+                                    <a href="@Url.Action("IndexUsuario","Home")"><i class="ti-home"></i><span>Home</span></a>
+                                }
+
+                            </li>
+                            @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                            {
+                                <li class="">
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-settings"></i><span>
+                                            Mantenimientos
+                                        </span>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li>
+                                            @Html.ActionLink("Usuarios", "Index", "Usuario")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Propiedades", "Index", "Propiedad")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Planes de Cobro", "Index", "PlanesCobro")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Rubros de Cobro", "Index", "RubroCobro")
+                                        </li>
+                                    </ul>
+                                </li>
+                            }
+                            <li>
+                                @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                                {
+                                    <a href="@Url.Action("IndexAdmin", "Incidencia")"><i class="ti-alert"></i><span>Incidencias</span></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("IndexUsuario", "Incidencia")"><i class="ti-alert"></i><span>Incidencias</span></a>
+                                }
+
+                            </li>
+                            @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                            {
+                                <li class="">
+                                    <a href="javascript:void(0)">
+                                        <i class="ti-settings"></i><span>
+                                            Información
+                                        </span>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li>
+                                            @Html.ActionLink("Agregar Información", "Create", "Informacion")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Subir Archivos", "Index", "Archivo")
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            }
+                            <li>
+                                @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                                {
+                                    <a href="@Url.Action("IndexAdmin", "Reservacion")"><i class="ti-map"></i><span>Reservaciones</span></a>
+                                }
+                                else
+                                {
+                                    <a href="@Url.Action("IndexUsuario", "Reservacion")"><i class="ti-map"></i><span>Reservaciones</span></a>
+                                }
+
+                            </li>
+
+                            @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Admin" }))
+                            {
+                                <li>
+                                    <a href="@Url.Action("Create", "EstadoCuenta")"><i class="ti-receipt"></i><span>Facturación</span></a>
+                                </li>
+                            }
+                            @if (Web.Permisos.AutorizeView.IsUserInRole(new string[] { "Residente" }))
+                            {
+                                <li>
+                                    <a href="@Url.Action("PagarFactura", "EstadoCuenta")"><i class="ti-receipt"></i><span>Facturación</span></a>
+                                </li>
+                            }
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- mobile_menu -->
+            <div class="col-12 d-block d-lg-none">
+                <div id="mobile_menu"></div>
+            </div>
+        </div>
+    </div>
+</div>
